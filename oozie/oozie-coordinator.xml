@@ -1,0 +1,21 @@
+<coordinator-app name="hive-jobs" frequency="0 * * * *" start="${start}" end="{end}" timezone="American/Chicago" xmlns="uri:oozie:coordinator:0.1">
+<action>
+<workflow>
+<app-path>${app-path}</app-path>
+<configuration>
+<property>
+	<name>jobTracker</name>
+	<value>${jobTracker}}</value>
+	</property>
+	<property>
+	<name>nameNode</name>
+	<value>${nameNode}}</value>
+	</property>
+	<property>
+	<name>queueName</name>
+	<value>${queueName}}</value>
+	</property>
+	</configuration>
+</workflow>
+</action>
+</coordinator-app>

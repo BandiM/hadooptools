@@ -1,0 +1,49 @@
+<workflow-app name="hive-examples" xmlns="uri:oozie:workflow:0.1">    
+	<credentials>
+	<credential name="hcat" type="hcat">
+	<property>
+	<name>hcat.metastore.uri</name>
+	<value>${hiveURI}}</value>
+	</property>
+	<property>
+	<name>hcat.metastore.principal</name>
+	<value>${hivePrincipal}}</value>
+	</property>
+<property>
+	<name>queueName</name>
+	<value>${queueName}}</value>
+	</property>	
+	</credential>	   
+	</credentials>
+	<start to="hive-table-creation">
+	<kill name ="Kill">
+	  <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}] </message>
+	</kill>
+	
+    <action name="hive-table-creation">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${JobTracker }</job-tracker>
+            <name-node>${NAMENODE}</name-node>
+            <prepare>
+               <delete path=$"Delete_PATH"/>
+             </prepare>
+            <job-xml>${HIVE SETTINGS FILE}</job-xml>
+            <script>${tableScript}</script>
+            <param>${tableNmae}</param>
+           </hive>
+        <ok to="hive-view-creation"/>
+        <error to="kill"/>
+    </action>
+		 <action name="hive-view-creation">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${JobTracker }</job-tracker>
+            <name-node>${NAMENODE}</name-node>
+             <job-xml>${HIVE SETTINGS FILE}</job-xml>
+            <script>${viewscript}</script>
+            <param>${tableNmae}</param>
+           </hive>
+        <ok to="End"/>
+        <error to="kill"/>
+    </action>
+	    
+</workflow-app>

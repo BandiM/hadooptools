@@ -1,0 +1,5 @@
+#oozie job submission from command line
+oozie job -oozie http://localhost:8080/oozie -config oozie_job.properties -run
+
+# oozie coordinator submission
+oozie job -oozie http://localhost:8080/oozie -config coordinator.properties -run
