@@ -1,0 +1,7 @@
+# Auto detect text files and perform LF normalization
+#* text=auto
+* linguist-vendored
+*.ql linguist-vendored=false
+oozie.* linguist-vendored=false
+*.xml linguist-vendored=false
+
